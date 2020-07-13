@@ -24,6 +24,8 @@ const stylus = require('gulp-stylus');
 const imagemin = require('gulp-imagemin');
 //Модуль переименовывания файлов
 const rename = require('gulp-rename');
+//Подключение js-файлов
+const include = require('gulp-include');
 
 //Порядок подключения файлов со стилями
 const styleFiles = [
@@ -51,12 +53,12 @@ gulp.task('styles', () => {
       .pipe(concat('style.css'))
       //Добавить префиксы
       .pipe(autoprefixer({
-         browsers: ['last 2 versions'],
+         overrideBrowserslist:  ['last 2 versions'],
          cascade: false
       }))
       //Минификация CSS
-      // .pipe(cleanCSS({
-      //    level: 2
+      .pipe(cleanCSS({
+         level: 2
       // }))
       .pipe(sourcemaps.write('./'))
       .pipe(rename({
@@ -71,7 +73,10 @@ gulp.task('styles', () => {
 gulp.task('scripts', () => {
    //Шаблон для поиска файлов JS
    //Всей файлы по шаблону './src/js/**/*.js'
-   return gulp.src('./src/js/**/*.js')
+   // return gulp.src('./src/js/**/*.js')
+      return gulp.src('./src/js/**/main.js')
+      //Подключение js-файлов
+      .pipe(include())
       //Объединение файлов в один
       .pipe(concat('main.js'))
       //Минификация JS
