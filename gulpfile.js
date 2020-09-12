@@ -24,7 +24,7 @@ const stylus = require('gulp-stylus');
 const imagemin = require('gulp-imagemin');
 //Модуль переименовывания файлов
 const rename = require('gulp-rename');
-//Подключение js-файлов
+//подключение js-файлов
 const include = require('gulp-include');
 
 //Порядок подключения файлов со стилями
@@ -45,7 +45,7 @@ const scriptFiles = [
 gulp.task('styles', () => {
    //Шаблон для поиска файлов CSS
    //Всей файлы по шаблону './src/css/**/*.css'
-   return gulp.src('./src/css/**/*.sass')
+   return gulp.src('./src/css/**/*.scss')
       .pipe(sourcemaps.init())
       //Указать stylus() , sass() или less()
       .pipe(sass())
@@ -59,7 +59,7 @@ gulp.task('styles', () => {
       //Минификация CSS
       .pipe(cleanCSS({
          level: 2
-      // }))
+      }))
       .pipe(sourcemaps.write('./'))
       .pipe(rename({
          suffix: '.min'
@@ -75,7 +75,7 @@ gulp.task('scripts', () => {
    //Всей файлы по шаблону './src/js/**/*.js'
    // return gulp.src('./src/js/**/*.js')
       return gulp.src('./src/js/**/main.js')
-      //Подключение js-файлов
+      //подключение js-файлов
       .pipe(include())
       //Объединение файлов в один
       .pipe(concat('main.js'))
@@ -115,7 +115,7 @@ gulp.task('watch', () => {
    //Следить за добавлением новых изображений
    gulp.watch('./src/images/**', gulp.series('imagemin'))
    //Следить за файлами со стилями с нужным расширением
-   gulp.watch('./src/css/**/*.sass', gulp.series('styles'))
+   gulp.watch('./src/css/**/*.scss', gulp.series('styles'))
    //Следить за JS файлами
    gulp.watch('./src/js/**/*.js', gulp.series('scripts'))
    //При изменении HTML запустить синхронизацию
