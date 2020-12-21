@@ -41,5 +41,7 @@
 Сборка:
 * __YouTube канал ITDoctor:__ https://www.youtube.com/c/ITDoctor
 
+## обновление на свежие зависимости
+ncu -u -packageFile package.json
 
 
